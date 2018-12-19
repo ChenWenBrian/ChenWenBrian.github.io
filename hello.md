@@ -1,3 +1,3 @@
 ## Hello World!
 
-[link back to Readme](!README.md)
+[link back to Readme](README.md)
