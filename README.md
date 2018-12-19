@@ -1,5 +1,11 @@
 ## 各位小伙伴们，欢迎来到我的github网页
 
+
+[link back to Readme](!README.md)
+
+
+[link back to hello](!hello.md)
+
 You can use the [editor on GitHub](https://github.com/ChenWenBrian/ChenWenBrian.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
