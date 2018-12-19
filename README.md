@@ -1,14 +1,22 @@
-## 各位小伙伴们，欢迎来到我的github网页
+## 欢迎来到我的博客
+
+---
+
+## 最新文章
+
+[如何在CentOS 7.2上编译使用nginx 1.15.0](blog/nginx.md)  2018-12-19
+
+nginx官方版本未提供CentOS 7.2的nginx 1.15.0，只有7.4以上版本才有官方版本，这里简单介绍下如何本地编译一份自己需要的nginx。
 
 
-[link back to Readme](README.md)
+---
+
+[返回首页](README.md)
 
 
-[link back to hello](hello.md)
 
-You can use the [editor on GitHub](https://github.com/ChenWenBrian/ChenWenBrian.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+----
 
 ### Markdown
 
