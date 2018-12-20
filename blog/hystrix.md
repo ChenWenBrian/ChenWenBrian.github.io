@@ -8,7 +8,7 @@ hystrix对应的中文名字是“豪猪”，豪猪周身长满了刺，能保�
 
 ## Hello Hystrix
 
-```Java
+```java
 public class CommandHelloWorld extends HystrixCommand<String> {
  
     private final String name;
