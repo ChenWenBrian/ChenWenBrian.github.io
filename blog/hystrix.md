@@ -1,6 +1,6 @@
 # 认识Hystrix
 
-![Hystrix](https://images2017.cnblogs.com/blog/719930/201709/719930-20170903171704624-1917697781.png)
+![Hystrix](../images/hystrix-icon.png)
 
 hystrix对应的中文名字是“豪猪”，豪猪周身长满了刺，能保护自己不受天敌的伤害，代表了一种防御机制，这与hystrix本身的功能不谋而合，因此Netflix团队将该框架命名为Hystrix，并使用了对应的卡通形象做作为logo。
 
@@ -42,7 +42,7 @@ Observable<String> s = new CommandHelloWorld("Bob").toObservable()
 
 ## Hystrix基本流程
 
-![Hystrix flow](https://images2017.cnblogs.com/blog/719930/201709/719930-20170903172107968-1042509260.png)
+![Hystrix flow](../images/hystrix-flow.png)
 
 > 说明：
 
