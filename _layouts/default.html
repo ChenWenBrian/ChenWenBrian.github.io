@@ -2,6 +2,11 @@
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
 
+    {% if site.gitalk %}
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+      <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    {% endif %}
+
     {% if site.google_analytics %}
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
       <script>
@@ -38,6 +43,15 @@
       {{ content }}
 
       <hr><p style="height: fit-content;"><a href="/" style="float: right;">[返回首页]</a></p>
+
+      {% if site.gitalk %}
+      <div id="gitalk-container"></div>
+      <script type="javascript">
+        var gitalk = new Gitalk(site.gitalk);
+        
+        gitalk.render('gitalk-container');
+      </script>
+      {% endif %}
 
       <footer class="site-footer">
         {% if site.github.is_project_page %}
