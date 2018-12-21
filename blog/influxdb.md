@@ -18,7 +18,7 @@ InfluxDB是一个开源的时序数据库，使用GO语言开发，特别适合�
 
 Influxdb本身自带有HTTP接口，但是语法可能比较冷门，使用的是[Line Protocol](https://docs.influxdata.com/influxdb/v1.6/write_protocols/line_protocol_tutorial/#special-characters-and-keywords)。这种协议在实际开发中对开发人员可能相当不友好，一个不小心就会出现数据或字段的转义错误。本文提供一种基于JSON格式的语法转换渠道，基于nginx的njs模块提供JSON到Line Protocol的转换。
 
-> 基本思路：**APP/Server** `----json---->` **nginx** `----line protocols---->` *influxdb*
+> 基本思路：**APP/Server** `----json---->` **nginx** `----line protocols---->` **influxdb**
 
 关于如何编译带njs模块的nginx，请参考[如何在CentOS 7.2上使用nginx 1.15.0](nginx.md)
 
