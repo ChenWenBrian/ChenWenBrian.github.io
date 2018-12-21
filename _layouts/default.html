@@ -47,7 +47,7 @@
       {% if site.gitalk %}
       <div id="gitalk-container"></div>
       <script type="javascript">
-        var gitalk = new Gitalk({{ site.gitalk }});
+        var gitalk = new Gitalk({{ site.gitalk | jsonify }});
         
         gitalk.render('gitalk-container');
       </script>
