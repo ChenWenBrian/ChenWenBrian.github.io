@@ -1,13 +1,5 @@
 # 如何使用nginx为influxdb提供API网关服务
 
-InfluxDB是一个开源的时序数据库，使用GO语言开发，特别适合用于处理和分析资源监控数据这种时序相关数据。而InfluxDB自带的各种特殊函数如求标准差，随机取样数据，统计数据变化比等，使数据统计和实时分析变得十分方便。关于influxdb的基础知识本文就不做详细介绍了，这里主要是针对influxdb在开发中的痛点提供一个API的转换渠道。
-
-Influxdb本身自带有HTTP接口，但是语法可能比较冷门，使用的是[Line Protocol](https://docs.influxdata.com/influxdb/v1.6/write_protocols/line_protocol_tutorial/#special-characters-and-keywords)。这种协议在实际开发中对开发人员可能相当不友好，一个不小心就会出现数据或字段的转义错误。本文提供一种基于JSON格式的语法转换渠道，基于nginx的njs模块提供JSON到Line Protocol的转换。
-
-> 基本思路：**APP/Server** `----json---->` **nginx** `----line protocols---->` *influxdb*
-
-关于如何编译带njs模块的nginx，请参考[如何在CentOS 7.2上使用nginx 1.15.0](nginx.md)
-
 目录：
   - [1 如何通过POST一个简单的JSON报文往influxdb里插入数据？](#1-%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87post%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84json%E6%8A%A5%E6%96%87%E5%BE%80influxdb%E9%87%8C%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE)
     - [示例：插入数据的请求报文协议](#%E7%A4%BA%E4%BE%8B%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E5%8D%8F%E8%AE%AE)
@@ -21,6 +13,14 @@ Influxdb本身自带有HTTP接口，但是语法可能比较冷门，使用的�
     - [Influxdb安装后的基本信息](#influxdb%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF)
     - [Chronograf的安装方法](#chronograf%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95)
     - [Chronograf安装后的基本信息](#chronograf%E5%AE%89%E8%A3%85%E5%90%8E%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF)
+
+InfluxDB是一个开源的时序数据库，使用GO语言开发，特别适合用于处理和分析资源监控数据这种时序相关数据。而InfluxDB自带的各种特殊函数如求标准差，随机取样数据，统计数据变化比等，使数据统计和实时分析变得十分方便。关于influxdb的基础知识本文就不做详细介绍了，这里主要是针对influxdb在开发中的痛点提供一个API的转换渠道。
+
+Influxdb本身自带有HTTP接口，但是语法可能比较冷门，使用的是[Line Protocol](https://docs.influxdata.com/influxdb/v1.6/write_protocols/line_protocol_tutorial/#special-characters-and-keywords)。这种协议在实际开发中对开发人员可能相当不友好，一个不小心就会出现数据或字段的转义错误。本文提供一种基于JSON格式的语法转换渠道，基于nginx的njs模块提供JSON到Line Protocol的转换。
+
+> 基本思路：**APP/Server** `----json---->` **nginx** `----line protocols---->` *influxdb*
+
+关于如何编译带njs模块的nginx，请参考[如何在CentOS 7.2上使用nginx 1.15.0](nginx.md)
 
 ## 1 如何通过POST一个简单的JSON报文往influxdb里插入数据？
 

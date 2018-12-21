@@ -1,6 +1,6 @@
 # 如何在CentOS 7.2上使用nginx 1.15.0
 
-SSL证书的签发与更新请参考[ssl-certs.md](ssl-certs.md)。
+SSL证书的签发与更新请参考[免费的服务端证书与客户端证书](ssl-certs.md)。
 
 nginx官方版本未提供CentOS 7.2的nginx 1.15.0，只有7.4以上版本才有官方版本，这里简单介绍下如何本地编译一份自己需要的nginx。
 
