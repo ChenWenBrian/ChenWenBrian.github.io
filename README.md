@@ -2,6 +2,10 @@
 
 ---
 
+- 2019-03-28   [如何在Docker for windows上安装kubernetes？](blog/docker-for-windows.md)  
+
+    > Dockers这些年是越来越火，连微软家的Windows也不干寂寞了，在Windows 10 pro以及Windows 2016以上的版本添加了对docker的官方支持。这下子Windows环境的开发人员一下子方便多了，再也不需要额外的Linux服务器或者虚拟机了（好吧，本质还是虚拟机hyper-v）。更NICE的是从Docker for Windows 18.02 EDGE开始，增加了kubernetes的支持，并且kubectl也被加入到本地path里并设置好了context（如果里用kubectl操作其他contexts，记得切换）。这下更酷了，容器编排以及本地集群部署问题统统都给你解决了。
+
 - 2018-09-18   [Kafka中的消息是否会丢失和重复消费](blog/kafka.md)  
 
     > Kafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。 这种动作（网页浏览，搜索和其他用户的行动）是在现代网络上的许多社会功能的一个关键因素。 这些数据通常是由于吞吐量的要求而通过处理日志和日志聚合来解决。 对于像Hadoop的一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。Kafka的目的是通过Hadoop的并行加载机制来统一线上和离线的消息处理，也是为了通过集群来提供实时的消息。
