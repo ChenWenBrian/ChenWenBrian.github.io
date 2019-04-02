@@ -116,3 +116,6 @@ docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashbo
 pause
 
 ```
+将上面的脚本copy下来保存为k8s-images.bat，然后双击运行即可。如果不用cmd使用其他bash命令的话，去掉最后的`pause`小尾巴。
+
+该命令执行成功后，再用`docker images`查看相关镜像是否都已成功拉下来，如果都OK的话，再在`docker desktop`上勾选安装kubernetes即可。
