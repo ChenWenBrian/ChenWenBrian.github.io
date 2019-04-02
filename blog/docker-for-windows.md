@@ -119,3 +119,21 @@ pause
 将上面的脚本copy下来保存为k8s-images.bat，然后双击运行即可。如果不用cmd使用其他bash命令的话，去掉最后的`pause`小尾巴。
 
 该命令执行成功后，再用`docker images`查看相关镜像是否都已成功拉下来，如果都OK的话，再在`docker desktop`上勾选安装kubernetes即可。
+
+## 安装kubernetes dashboard（可选）
+
+默认情况下，安装完kubernetes后是不会有dashboard的，所以还需要额外安装一下dashboard，方便监控与管理（如果你更习惯使用命令，可以不必安装dashboard）。如果照着kubernetes官方的文档去安装dashboard，那你可能要跟我一样踩不少坑，为了方便，建议使用官方的非安全版本，如下：
+
+```bat
+C:\> kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.0/src/deploy/alternative/kubernetes-dashboard.yaml
+```
+
+另外为了方便监控性能，还可以加上一些图表组件：
+
+```bat
+C:\> kubectl create -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/influxdb.yaml
+C:\> kubectl create -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/heapster.yaml
+C:\> kubectl create -f https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/grafana.yaml
+```
+
+都安装完毕后，通过命令`kubectl proxy`启动dashboard服务，然后在浏览器输入[http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy](http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy)
