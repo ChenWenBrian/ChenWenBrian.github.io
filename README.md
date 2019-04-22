@@ -2,6 +2,12 @@
 
 ---
 
+- 2019-04-22   [单网卡玩转智能网关——把OpenWRT塞进虚拟机](blog/openwrt-for-vm.md)  
+
+    > 玩过智能路由器的同学可能都知道，国内比较火的koolshare论坛提供的梅林固件的那个强大：科学上网、游戏加速、自动签到、VPN服务器、FTP服务器、智能去广告、动态DNS、内网穿透、BT下载、私有云、KMS等众多扩展软件，让你的路由器从此变的强大无比。但是呢，梅林固件支持的路由器毕竟有限，我们不一定刚好拥有，另外如果我们想在工作场所一样拥有强大且不受限的网络访问能力怎么办呢？这里我们就可以考虑软路由了。
+
+    > 软路由是指利用台式机或服务器配合软件形成路由解决方案，主要靠软件的设置，达成路由器的功能；而硬路由则是以特有的硬设备，包括处理器、电源供应、嵌入式软件，提供设定的路由器功能。常见的有海蜘蛛、OpenWRT、DDWRT、Tomato等，这些系统共有的特点是一般对硬件要求较低，甚至只需要一台486电脑，一张软盘，两块网卡就可以安装出一台非常专业的软件防火墙。
+
 - 2019-03-28   [如何在Docker for windows上安装kubernetes？](blog/docker-for-windows.md)  
 
     > Dockers这些年是越来越火，连微软家的Windows也不干寂寞了，在Windows 10 pro以及Windows 2016以上的版本添加了对docker的官方支持。这下子Windows环境的开发人员一下子方便多了，再也不需要额外的Linux服务器或者虚拟机了（好吧，本质还是虚拟机hyper-v）。更NICE的是从Docker for Windows 18.02 EDGE开始，增加了kubernetes的支持，并且kubectl也被加入到本地path里并设置好了context（如果里用kubectl操作其他contexts，记得切换）。这下更酷了，容器编排以及本地集群部署问题统统都给你解决了。
@@ -13,6 +19,7 @@
 - 2018-09-11   [如何使用nginx为influxdb提供API网关服务](blog/influxdb.md)  
 
     > InfluxDB是一个开源的时序数据库，使用GO语言开发，特别适合用于处理和分析资源监控数据这种时序相关数据。而InfluxDB自带的各种特殊函数如求标准差，随机取样数据，统计数据变化比等，使数据统计和实时分析变得十分方便。关于influxdb的基础知识本文就不做详细介绍了，这里主要是针对influxdb在开发中的痛点提供一个API的转换渠道。
+
     > Influxdb本身自带有HTTP接口，但是语法可能比较冷门，使用的是[Line Protocol](https://docs.influxdata.com/influxdb/v1.6/write_protocols/line_protocol_tutorial/#special-characters-and-keywords)。这种协议在实际开发中对开发人员可能相当不友好，一个不小心就会出现数据或字段的转义错误。本文提供一种基于JSON格式的语法转换渠道，基于nginx的njs模块提供JSON到Line Protocol的转换。
 
 
@@ -27,5 +34,7 @@
 - 2018-04-10   [全民HTTPS：免费的服务端证书与客户端证书](blog/ssl-certs.md)  
 
     > 在开发测试过程中，我们经常要对客户端与服务器端的HTTP通讯加密，也就是HTTPS。而HTTPS往往依赖于证书，能公网使用的证书往往都是收费的，且费用不低。国外一家公司[Let's Encrypt](https://letsencrypt.org/getting-started/)为我们提供了另一种选择，免费的服务端证书，并且可以通过各种浏览器、安卓与IOS的验证。
+
     > 但是Let's Encrypt的免费证书有效期只有90天，本文将介绍如何（通过[certbot](https://certbot.eff.org/lets-encrypt/centosrhel7-other)自动刷新有效期）。
+    
     > 在需要双向HTTPS校验的场景下，我们往往还需要客户端证书。客户端证书我会另外介绍openssl自签发证书，因为客户端证书实际是由我们自己的服务器端去校验，所以自签发证书即可解决大部分问题。
