@@ -111,9 +111,19 @@ $ ssh-add -k ~/.ssh/private_key
 ```sh
 $ sudo usermod -aG docker YOUR-ACCOUNT
 ```
-完成后最好重启一次服务器
+
+完成后最好重启一次服务器，确保用户组设置生效。
 
 本地验证效果：
+
 ```sh
 $ docker -H ssh://YOUR-ACCOUNT@YOUR-HOST-IP-OR-DOMAIN ps
 ```
+
+验证通过后，我们发现这样还是比较麻烦，总不能每条docker指令都得先申明下host的地址吧，这里我们可以通过修改下DOCKER_HOST这个环境变量完成docker daemon的切换。
+
+- 全局方案：可以在系统的环境变量里添加`DOCKER_HOST`，并将值设置为`ssh://YOUR-ACCOUNT@YOUR-HOST-IP-OR-DOMAIN`。
+- 临时方案：CMD和powershell里也可以通过`set DOCKER_HOST=ssh://YOUR-ACCOUNT@YOUR-HOST-IP-OR-DOMAIN`临时设置本窗口的环境变量；
+- 临时方案：git-bash里可以使用Linux的命令`export DOCKER_HOST=ssh://YOUR-ACCOUNT@YOUR-HOST-IP-OR-DOMAIN`临时设置本窗口的环境变量。
+
+> Tips: 如果本地也运行有docker daemon，需要临时切换回本地daemon时，可将DOCKER_HOST设置为空，如`set DOCKER_HOST=`
