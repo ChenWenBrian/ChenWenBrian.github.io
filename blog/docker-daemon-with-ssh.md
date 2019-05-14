@@ -52,20 +52,7 @@ WantedBy=sockets.target
 
 如果要开启TCP端口，并将docker daemon分享给团队成员使用，我们也可以使用systemd的方式，新建一个`docker-tcp.socket`的文件如下：
 ```shell
-$ sudo vi /usr/lib/systemd/system/docker.socket 
-[Unit]
-Description=Docker Socket for the API
-PartOf=docker.service
-
-[Socket]
-ListenStream=/var/run/docker.sock
-SocketMode=0660
-SocketUser=root
-SocketGroup=docker
-
-[Install]
-WantedBy=sockets.target
-[wildfox@cw-proxy ~]$ cat /usr/lib/systemd/system/docker-tcp.socket 
+$ sudo vi /usr/lib/systemd/system/docker-tcp.socket 
 [Unit]
 Description=Docker TCP Socket for the API
 
