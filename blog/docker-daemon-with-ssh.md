@@ -1,6 +1,6 @@
 # 如何通过SSH访问Docker Daemon？
 
-从Dockers 18.09版开始，docker开始支持ssh远程访问docker daemon了。有了ssh，我们远程管理docker daemon时再也不必为开启了tcp端口而造成的可能安全隐患而烦恼了。更nice的是，有了ssh，我们就可以不必本地安装docker for desktop了，docker CE也不用跑在虚拟机环境了，本地电脑有限的资源也不用为开启docker虚拟机而烦恼了；云主机的网络速度一般来说都是相当可观的，所以无论是下载镜像还是上传镜像，都会如丝般顺滑；而且如果你有海外云主机的话，各种谷歌镜像对你也不再是问题，简直不要太爽。
+从Docker 18.09版开始，docker开始支持ssh远程访问docker daemon了。有了ssh，我们远程管理docker daemon时再也不必为开启了tcp端口而可能造成安全隐患而烦恼了。更NICE的是，有了ssh，我们就可以不必本地安装docker for desktop了，docker CE也不用跑在虚拟机环境了，本地电脑有限的资源也不用为开启docker虚拟机而烦恼了；另外云主机的网络速度一般来说都是相当可观的，所以无论是下载镜像还是上传镜像，都会如丝般顺滑；而且如果你有海外云主机的话，各种谷歌镜像对你也不再是问题，简直不要太爽。
 
 ## 在远程服务器上安装docker daemon
 以centos 7为例，ssh登陆到服务器，并确保当前用户有root权限或者sudo权限。
@@ -30,10 +30,11 @@ $ sudo yum install docker-ce docker-ce-cli containerd.io
 $ sudo systemctl start docker
 ```
 
-## docker daemon如何开启tcp
+## Tips：docker daemon如何开启tcp
 
-默认情况下，docker安装完毕后会开启unit socket进行本地通讯，我们可以查看docker的systemd配置，在`/usr/lib/systemd/system/`目录下。
+默认情况下，docker安装完毕后会开启unix socket进行本地通讯，我们可以查看docker的systemd配置，在`/usr/lib/systemd/system/`目录下。
 ```shell
+#查看docker的本地unix socket配置
 $ sudo cat /usr/lib/systemd/system/docker.socket 
 [Unit]
 Description=Docker Socket for the API
@@ -49,7 +50,7 @@ SocketGroup=docker
 WantedBy=sockets.target
 ```
 
-要开启TCP端口，我们也可以使用systemd的方式，新建一个`docker-tcp.socket`的文件如下：
+如果要开启TCP端口，并将docker daemon分享给团队成员使用，我们也可以使用systemd的方式，新建一个`docker-tcp.socket`的文件如下：
 ```shell
 $ sudo vi /usr/lib/systemd/system/docker.socket 
 [Unit]
@@ -87,7 +88,11 @@ sudo systemctl start docker.service
 ```
 通过`sudo netstat -ntlp` 查看2375端口是否已开启，或者`docker -H 127.0.0.1 ps`查看返回结果是否正常，也可判断TCP 2375端口是否已成功开启。
 
-## docker客户端与服务端的通讯方式
+> Tips: 强烈建议不要在公网端口开启docker的TCP端口，docker默认都是以root权限运行的，如果被入侵会造成极大的安全隐患。
+
+> Tips: 建议在公司内网建立一个高速的docker daemon服务器，并通过开放TCP端口的方式将docker daemon分享给团队使用，这样开发人员本地无需再跑docker虚拟机。
+
+## Tips：docker客户端与服务端的通讯方式
 docker客户端与服务端通讯，通常使用unix socket /var/run/docker.sock或者TCP socket。以下为docker daemon的一个启动示例：
 ```shell
 $ ps aux | grep dockerd
@@ -113,14 +118,15 @@ root 2900 0.1 4.4 388008 45424 ? Sl 09:28 0:01 /usr/local/bin/dockerd -g /var/li
 ```sh
 $ ssh-add -k ~/.ssh/private_key
 ```
-然后在远程服务器上将公钥与账号绑定。
-账号绑定后务必将账号加入到docker的组里（root不需要），不然客户端ssh会出错，提示找不到http://docker什么的。
+然后在远程服务器上将公钥与账号绑定（azure可以直接在VM的reset password面板里绑定公钥）。
+
+账号绑定公钥后，强烈建议将该账号加入到docker的组里（root账号不需要），否则docker客户端ssh连接时可能会出错，提示`Cannot connect to the Docker daemon at http://docker. Is the docker daemon running?`，这是因为要访问本地unix socket必须有root权限或者归属于docker组。
 ```sh
-$ sudo usermod -aG docker your-account
+$ sudo usermod -aG docker YOUR-ACCOUNT
 ```
 完成后最好重启一次服务器
 
 本地验证效果：
 ```sh
-$ docker -H ssh://your-account@your-host-ip-or-domain ps
+$ docker -H ssh://YOUR-ACCOUNT@YOUR-HOST-IP-OR-DOMAIN ps
 ```
