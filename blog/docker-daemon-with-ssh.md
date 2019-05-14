@@ -85,7 +85,7 @@ docker客户端与服务端通讯，通常使用unix socket /var/run/docker.sock
 $ ps aux | grep dockerd
 root 2900 0.1 4.4 388008 45424 ? Sl 09:28 0:01 /usr/local/bin/dockerd -g /var/lib/docker 
 -H unix:// 
--H tcp://0.0.0.0:2376 
+-H tcp://0.0.0.0:2375 
 --label provider=virtualbox 
 --tlsverify 
 --tlscacert=/var/lib/boot2docker/ca.pem
@@ -95,13 +95,13 @@ root 2900 0.1 4.4 388008 45424 ? Sl 09:28 0:01 /usr/local/bin/dockerd -g /var/li
 ```
 这里有2个重要的参数：
 - -H unix://, 表示本地unix socket /var/run/docker.sock. 本地访问时，Docker client使用这个unix的socket与daemon通讯；
-- -H tcp://0.0.0.0:2376 使docker daemon通过2376端口，有了可以暴露在任何网络的能力。出于安全考虑，这个端口一般需要通过安全组打开，或者严格限制访问的IP。这个sample里使用了https认证。
+- -H tcp://0.0.0.0:2375 使docker daemon通过2375端口，有了可以暴露在任何网络的能力。出于安全考虑，这个端口一般需要通过安全组打开，或者严格限制访问的IP。这个sample里使用了https认证。
 
 而我们知道，在Linux环境里，ssh是被广泛使用且一般都会默认开放的端口，它支持多种证书访问方式，且可以给很多应用提供网络通讯的通道。而从docker 18.09开始，docker原生支持了ssh，这将为我们远程管理docker daemon带来极大的便利。
 
 ## 开启ssh远程访问docker daemon
 
-首先可以本地生成一对RSA秘钥，并在本地ssh客户端上将私钥导入。注意Windows 10 1809以上版本系统有带openssh，需启动ssh-agent服务才能管理私钥。
+首先我们需要知道，目前docker并不支持SSH账号密码的验证方式，只能通过公钥私钥验证身份，所以我们可以先在本地生成一对RSA秘钥，并在本地ssh客户端上将私钥导入。注意Windows 10 1809以上版本系统有带openssh，需启动ssh-agent服务才能管理私钥。
 ```sh
 $ ssh-add -k ~/.ssh/private_key
 ```
