@@ -2,6 +2,10 @@
 
 ---
 
+- 2019-05-14   [统一管理Windows环境下的OpenSSH](blog/openssh-on-windows.md)  
+
+    > Windows 10从1709开始，默认在系统目录里带了OpenSSH客户端，这样对于开发人员就可以直接在cmd或者powershell上使用ssh命令。但是git-bash上也有一套相对独立的OpenSSH，两者的公钥私钥似乎不能统一管理，怎么办呢？
+
 - 2019-05-13   [如何通过SSH访问Docker Daemon？](blog/docker-daemon-with-ssh.md)  
 
     > 从Docker 18.09版开始，docker开始支持ssh远程访问docker daemon了。有了ssh，我们远程管理docker daemon时再也不必为开启了tcp端口而可能造成安全隐患而烦恼了。更NICE的是，有了ssh，我们就可以不必本地安装docker for desktop了，docker CE也不用跑在虚拟机环境了，本地电脑有限的资源也不用为开启docker虚拟机而烦恼了；另外云主机的网络速度一般来说都是相当可观的，所以无论是下载镜像还是上传镜像，都会如丝般顺滑；而且如果你有海外云主机的话，各种谷歌镜像对你也不再是问题，简直不要太爽。
