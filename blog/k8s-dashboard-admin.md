@@ -160,7 +160,9 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 
 打开浏览器并输入[http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)，在登陆页选择令牌，然后粘贴刚刚拷贝出来的jwt token，完成登陆。
 
-> PS: 登陆后如果出现大量黄色的警告信息，则大部分是因为账号权限不正确导致。**如无必要，建议使用dashboard自带账号即可**。
+> PS: 登陆后如果出现大量黄色的警告信息，则大部分是因为账号权限不正确导致。
+> 
+> 实测：docker-for-desktop环境使用dashboard自带账号即可；而Google kubernetes engine则需要使用上面创建的admin-user才行。
 
 ```txt
 configmaps is forbidden: User "system:anonymous" cannot list configmaps in the namespace "default"
