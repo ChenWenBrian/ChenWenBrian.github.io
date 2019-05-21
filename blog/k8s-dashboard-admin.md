@@ -44,7 +44,7 @@ deployment.apps "kubernetes-dashboard" created
 service "kubernetes-dashboard" created
 ```
 
-执行完毕后可以通过查看`kube-system`命名空间下的pod检查，发现会多出一个dashboard相关的pod。此时输入命令`kubectl proxy`即可开启dashboard，打开浏览器并输入`http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login`，如果出现正常的登陆页，并提供kubeconfig和令牌登陆选项，则表示dashboard组件工作正常。那么我们怎么通过令牌登陆呢？
+执行完毕后可以通过查看`kube-system`命名空间下的pod检查，发现会多出一个dashboard相关的pod。此时输入命令`kubectl proxy`即可开启dashboard，打开浏览器并输入[http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)，如果出现正常的登陆页，并提供kubeconfig和令牌登陆选项，则表示dashboard组件工作正常。那么我们怎么通过令牌登陆呢？
 
 大部分情况下，dashboard安装完毕后，组件会为我们创建好相关账号与权限，如上文输出的账号`kubernetes-dashboard`和权限`kubernetes-dashboard-minimal`，我们直接使用即可。使用方法见下文的[获取Bearer Token](#%E8%8E%B7%E5%8F%96bearer-token)。
 
@@ -154,11 +154,11 @@ token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2V
 
 将输出部分token的值拷贝出来，该值应该是一个标准的jwt token，在有些console环境下直接拷贝屏幕上因内容过长而换行的值容易出错，譬如出现换行符，或者其他特殊字符，导致jwt token被破坏的情况，这时可以考虑将token输出到文件，然后在文件里将token值拷贝出来。
 
-> PS: token登陆老是失败？打开https://jwt.io，然后将拷贝出来的jwt token贴进去检查下，大部分情况都是token被破坏导致的。
+> PS: token登陆老是失败？打开[https://jwt.io](https://jwt.io/#debugger-io)，然后将拷贝出来的jwt token贴到左侧的Encoded里检查下，token有问题的话输入框底色会变粉红。大部分登陆失败的情况都是token被破坏导致的。
 
 ## 验证登陆
 
-打开浏览器并输入`http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login`，在登陆页选择令牌，然后粘贴刚刚拷贝出来的jwt token，完成登陆。
+打开浏览器并输入[http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)，在登陆页选择令牌，然后粘贴刚刚拷贝出来的jwt token，完成登陆。
 
 > PS: 登陆后如果出现大量黄色的警告信息，则大部分是因为账号权限不正确导致。**如无必要，建议使用dashboard自带账号即可**。
 
