@@ -2,6 +2,10 @@
 
 ---
 
+- 2019-05-21   [如何通过JWT Token访问Kubernetes dashboard？](blog/k8s-dashboard-admin.md)  
+
+    > 之前安装[Docker for windows](docker-for-windows.md)一文里提到如何安装免身份验证的dashboard，但是更多的场景是我们需要一个身份验证，那么如何安装一个带身份验证的dashboard，并让我们顺利登陆呢？
+
 - 2019-05-14   [统一管理Windows环境下的OpenSSH](blog/openssh-on-windows.md)  
 
     > Windows 10从1709开始，默认在系统目录里带了OpenSSH客户端，这样对于开发人员就可以直接在cmd或者powershell上使用ssh命令。但是git-bash上也有一套相对独立的OpenSSH，两者的公钥私钥似乎不能统一管理，怎么办呢？
