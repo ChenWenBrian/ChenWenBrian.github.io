@@ -169,9 +169,69 @@ FROM
 但是现实中往往有时候排名是要求跳名次的，即重复3个第2名后，从第5名开始继续排名。继续使用SQL Variable方式实现，如下：
 
 ```sql
-...
+set @num:=1;
+set @duplicates:=1;
+set @last:=0;
+
+SELECT 
+    (@num:=IF(@last > o.total, @num + @duplicates, @num)) AS ranking,
+    (@duplicates:=IF(@last = o.total, @duplicates + 1, 1)) AS duplicates,
+    (@last:=o.total) AS last_score,
+    o.*
+FROM
+    (SELECT 
+        c.student_id, SUM(c.score) AS total
+    FROM
+        std_score c
+    GROUP BY c.student_id
+    ORDER BY total DESC) o
 ```
 
+| ranking | duplicates | last_score | student_id | total |
+| ------- | ---------- | ---------- | ---------- | ----- |
+| 1       | 1          | 274        | 5          | 274   |
+| 2       | 1          | 269        | 1          | 269   |
+| 2       | 2          | 269        | 2          | 269   |
+| 2       | 3          | 269        | 3          | 269   |
+| 5       | 1          | 264        | 4          | 264   |
+| 5       | 2          | 264        | 6          | 264   |
+| 7       | 1          | 234        | 7          | 234   |
+| 8       | 1          | 192        | 8          | 192   |
+
+同样的，一般情况下，`duplicates`和`last_score`并不是我们最终需要的数据，我们一样可以消灭这些中间字段。但是这次的字段计算顺序比上一个例子的要复杂：`ranking`依然是最先计算，并用到上一条记录中的`@duplicates`和`@last`两个变量，然后`duplicate`又必须在`last_score`前计算，就不太适用于上一个的简化方式了。通用的办法是在该查询外面再嵌套一个`select`查询，并隐藏本次查询的字段，SQL如下：
+
+```sql
+set @num:=1;
+set @duplicates:=1;
+set @last:=0;
+
+SELECT 
+    h.ranking, h.student_id, h.total
+FROM
+    (SELECT 
+        (@num:=IF(@last > o.total, @num + @duplicates, @num)) AS ranking,
+        (@duplicates:=IF(@last = o.total, @duplicates + 1, 1)) AS duplicates,
+        (@last:=o.total) AS last_score,
+        o.*
+    FROM
+        (SELECT 
+        c.student_id, SUM(c.score) AS total
+    FROM
+        std_score c
+    GROUP BY c.student_id
+    ORDER BY total DESC) o) h
+```
+
+| ranking | student_id | total |
+| ------- | ---------- | ----- |
+| 1       | 5          | 274   |
+| 2       | 1          | 269   |
+| 2       | 2          | 269   |
+| 2       | 3          | 269   |
+| 5       | 4          | 264   |
+| 5       | 6          | 264   |
+| 7       | 7          | 234   |
+| 8       | 8          | 192   |
 
 这个需求，大部分数据库也已经有内置的函数实现了，我们直接用就可以，参考[通过rank() over排名](#%E9%80%9A%E8%BF%87rank-over%E6%8E%92%E5%90%8D)
 
