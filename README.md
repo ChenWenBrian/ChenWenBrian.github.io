@@ -2,6 +2,10 @@
 
 ---
 
+- 2019-05-27   [漫谈MySQL的Ranking技术](blog/mysql-ranking.md)  
+
+    > 在实际的项目中，我们经常会遇到需要对数据进行排名（非简单排序）的情况，譬如我们有一个学生各个科目的成绩表，要的到一个学生期末考试总成绩的排名表，怎么做呢？简单的按学生分组后计算总分然后再对总分排个序吗？那如何处理并列第一、并列第三的问题呢？这时候我们需要的是按总成绩排名，即ranking，而非order by。
+
 - 2019-05-21   [如何通过JWT Token访问Kubernetes dashboard？](blog/k8s-dashboard-admin.md)  
 
     > 之前安装[Docker for windows](docker-for-windows.md)一文里提到如何安装免身份验证的dashboard，但是更多的场景是我们需要一个身份验证，那么如何安装一个带身份验证的dashboard，并让我们顺利登陆呢？
