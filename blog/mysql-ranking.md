@@ -237,11 +237,20 @@ FROM
 
 ## 通过rank() over排名
 
-由于rank是一个很基础的计算功能，所以大部分关系型数据库都有内置的rank函数，我们直接用就可以了。rank()函数在排名时，是会跳跃排名的，MySQL中rank函数的用法如下：
+由于rank是一个很基础的计算功能，所以大部分关系型数据库都有内置的rank函数，我们直接用就可以了。rank()函数的语法如下：
+
+```sql
+RANK() OVER (
+    PARTITION BY <expression>[{,<expression>...}]
+    ORDER BY <expression> [ASC|DESC], [{,<expression>...}]
+)
+```
+
+rank()函数在排名时，是会跳跃排名的，MySQL中rank函数的用法如下：
 
 ```sql
 SELECT 
-	rank() over (order by o.total desc) ranking,
+    rank() over (order by o.total desc) ranking,
     o.*
 FROM
     (SELECT 
@@ -262,13 +271,55 @@ FROM
 | 7       | 7          | 234   |
 | 8       | 8          | 192   |
 
-## 通过dense_rank() over排名
-
-dense_rank() 是rank不跳排名的一种实现，参考如下：
+rank() 函数还可以根据指定的字段做分区排名，例如按各个学科单独做排名，示例如下：
 
 ```sql
 SELECT 
-	dense_rank() over (order by o.total desc) ranking,
+    rank() over (
+        partition by s.class_id
+         order by s.score desc
+    ) ranking,
+    s.*
+FROM 
+std_score s
+```
+
+| ranking | id  | student_id | class_id | score |
+| ------- | --- | ---------- | -------- | ----- |
+| 1       | 1   | 1          | 1        | 99    |
+| 1       | 4   | 2          | 1        | 99    |
+| 3       | 10  | 4          | 1        | 87    |
+| 3       | 13  | 5          | 1        | 87    |
+| 5       | 7   | 3          | 1        | 80    |
+| 6       | 16  | 6          | 1        | 78    |
+| 7       | 19  | 7          | 1        | 67    |
+| 8       | 22  | 8          | 1        | 62    |
+| 1       | 17  | 6          | 2        | 97    |
+| 2       | 2   | 1          | 2        | 90    |
+| 2       | 5   | 2          | 2        | 90    |
+| 2       | 8   | 3          | 2        | 90    |
+| 2       | 14  | 5          | 2        | 90    |
+| 6       | 11  | 4          | 2        | 79    |
+| 7       | 20  | 7          | 2        | 78    |
+| 8       | 23  | 8          | 2        | 59    |
+| 1       | 9   | 3          | 3        | 99    |
+| 2       | 12  | 4          | 3        | 98    |
+| 3       | 15  | 5          | 3        | 97    |
+| 4       | 18  | 6          | 3        | 89    |
+| 4       | 21  | 7          | 3        | 89    |
+| 6       | 3   | 1          | 3        | 80    |
+| 6       | 6   | 2          | 3        | 80    |
+| 8       | 24  | 8          | 3        | 71    |
+
+
+
+## 通过dense_rank() over排名
+
+dense_rank()是rank()不跳排名的一种实现，具有与rank()完全一致的用法，这里就不赘述了。本文例子的SQL如下：
+
+```sql
+SELECT 
+    dense_rank() over (order by o.total desc) ranking,
     o.*
 FROM
     (SELECT 
