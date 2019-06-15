@@ -71,7 +71,9 @@ IMPORTANT NOTES:
 
 Certbot在获取到证书后，支持在证书过期前自动更新证书。使用命令`certbot renew --dry-run`测试自动更新，如果命令输出正常，则可以将自动更新命令`certbot renew`加入到`crontab`计划任务中。参考示例如下（每天12点执行一次更新检查）：
 
-```vim
+```sh
+$ sudo crontab -e
+# m h dom mon dow command
 0 12 * * * /usr/bin/certbot renew --quiet
 ```
 

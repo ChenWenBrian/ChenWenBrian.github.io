@@ -2,6 +2,10 @@
 
 ---
 
+- 2019-06-15   [CentOS 7 开启Google BBR](blog/centos-bbr.md)  
+
+    > Google BBR (Bottleneck Bandwidth and RTT) 是一种新的TCP拥塞控制算法,它可以高效增加吞吐和降低网络延迟，并且Linux Kernel4.9+已经集成该算法。开启BBR也非常简单，因为它只需要在发送端开启，网络其他节点和接收端不需要任何改变。
+
 - 2019-05-27   [漫谈MySQL的Ranking技术](blog/mysql-ranking.md)  
 
     > 在实际的项目中，我们经常会遇到需要对数据进行排名（非简单排序）的情况，譬如我们有一个学生各个科目的成绩表，要的到一个学生期末考试总成绩的排名表，怎么做呢？简单的按学生分组后计算总分然后再对总分排个序吗？那如何处理并列第一、并列第三的问题呢？这时候我们需要的是按总成绩排名，即ranking，而非order by。
@@ -53,8 +57,6 @@
 
 - 2018-04-10   [全民HTTPS：免费的服务端证书与客户端证书](blog/ssl-certs.md)  
 
-    > 在开发测试过程中，我们经常要对客户端与服务器端的HTTP通讯加密，也就是HTTPS。而HTTPS往往依赖于证书，能公网使用的证书往往都是收费的，且费用不低。国外一家公司[Let's Encrypt](https://letsencrypt.org/getting-started/)为我们提供了另一种选择，免费的服务端证书，并且可以通过各种浏览器、安卓与IOS的验证。
-
-    > 但是Let's Encrypt的免费证书有效期只有90天，本文将介绍如何（通过[certbot](https://certbot.eff.org/lets-encrypt/centosrhel7-other)自动刷新有效期）。
-    
-    > 在需要双向HTTPS校验的场景下，我们往往还需要客户端证书。客户端证书我会另外介绍openssl自签发证书，因为客户端证书实际是由我们自己的服务器端去校验，所以自签发证书即可解决大部分问题。
+    > 在开发测试过程中，我们经常要对客户端与服务器端的HTTP通讯加密，也就是HTTPS。而HTTPS往往依赖于证书，能公网使用的证书往往都是收费的，且费用不低。国外一家公司[Let's Encrypt](https://letsencrypt.org/getting-started/)为我们提供了另一种选择，免费的服务端证书，并且可以通过各种浏览器、安卓与IOS的验证。              
+    > 但是Let's Encrypt的免费证书有效期只有90天，本文将介绍如何（通过[certbot](https://certbot.eff.org/lets-encrypt/centosrhel7-other)自动刷新有效期）。                
+    > 在需要双向HTTPS校验的场景下，我们往往还需要客户端证书。客户端证书我会另外介绍openssl自签发证书，因为客户端证书实际是由我们自己的服务器端去校验，所以自签发证书即可解决大部分问题。 
