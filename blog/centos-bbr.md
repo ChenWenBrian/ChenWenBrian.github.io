@@ -87,7 +87,7 @@ kernel-3.10.0-957.21.2.el7.x86_64
 # package-cleanup --oldkernels --count=1
 ```
 
-手工删除旧版内核：
+手工删除旧版内核（可完全清除所有没有使用的内核）：
 ```shell
 #  yum remove kernel-3.10.0-957.21.2.el7.x86_64 
 ```
