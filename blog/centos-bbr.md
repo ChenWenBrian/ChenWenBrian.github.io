@@ -74,9 +74,9 @@ Google BBR (Bottleneck Bandwidth and RTT) 是一种新的TCP拥塞控制算法,�
 >5.1.9-1.el7.elrepo.x86_64
 
 
-**删除旧内核**
+**可选：删除旧内核**
 
-说明：删除旧内核的目的是为了防止 yum 更新旧版内核之后覆盖了 grub 默认启动项
+PS：删除旧内核的目的是为了防止 yum 更新旧版内核之后覆盖了 grub 默认启动项。`该操作可能会失败，请谨慎操作`
 
 ```shell
 # yum -y remove kernel kernel-tools
