@@ -11,7 +11,7 @@
   - [获取免费的Let's Encrypt服务器证书并自动续期](#%E8%8E%B7%E5%8F%96%E5%85%8D%E8%B4%B9%E7%9A%84lets-encrypt%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%81%E4%B9%A6%E5%B9%B6%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F)
     - [获取证书](#%E8%8E%B7%E5%8F%96%E8%AF%81%E4%B9%A6)
     - [自动更新证书](#%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6)
-  - [如何采用openssl签发客户端的证书签发](#%E5%A6%82%E4%BD%95%E9%87%87%E7%94%A8openssl%E7%AD%BE%E5%8F%91%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%8F%91)
+  - [如何采用openssl签发客户端的证书](#%e5%a6%82%e4%bd%95%e9%87%87%e7%94%a8openssl%e7%ad%be%e5%8f%91%e5%ae%a2%e6%88%b7%e7%ab%af%e7%9a%84%e8%af%81%e4%b9%a6)
     - [签发CA证书](#%E7%AD%BE%E5%8F%91ca%E8%AF%81%E4%B9%A6)
     - [签发Server证书](#%E7%AD%BE%E5%8F%91server%E8%AF%81%E4%B9%A6)
     - [签发客户端证书](#%E7%AD%BE%E5%8F%91%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%81%E4%B9%A6)
@@ -77,9 +77,13 @@ $ sudo crontab -e
 0 12 * * * /usr/bin/certbot renew --quiet
 ```
 
-## 如何采用openssl签发客户端的证书签发
+---
 
-由于客户端证书的校验方是服务器，而服务器是自己的，所以在需要使用双向HTTPS加密时，可以使用openssl签发客户端证书。
+## 如何采用openssl签发客户端的证书
+
+平时我们通过各类证书颁发机构申请的各种证书，本质上是单向证书，其作用是让客户端能够验证服务器，同时加密HTTP通道。那如何让服务器也能验证客户端，确保客户端是自己的客户，而非来自黑客的攻击呢？
+
+我们可以使用双向HTTPS加密。首先服务器必须是自己的，在需要使用双向HTTPS加密时，可以使用openssl签发客户端证书，自己的服务器充当CA。
 完整过程可以参考[OpenSSL Certificate Authority](https://jamielinux.com/docs/openssl-certificate-authority/introduction.html)
 
 ### 签发CA证书
