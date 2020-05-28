@@ -2,6 +2,12 @@
 
 ---
 
+- 2020-05-28   [Windows 10 Terminal初体验](blog/windows-terminal.md)  
+
+    > Windows Terminal is a new, modern, feature-rich, productive terminal application for command-line users. It includes many of the features most frequently requested by the Windows command-line community including support for tabs, rich text, globalization, configurability, theming & styling, and more.
+    >
+    > 简单点说呢，就是说Terminal是新时代的命令行工具，更新更全更漂亮，基本上我们日常用到的各种命令行工具都集成进去了。
+
 - 2019-06-15   [CentOS 7 开启Google BBR](blog/centos-bbr.md)  
 
     > Google BBR (Bottleneck Bandwidth and RTT) 是一种新的TCP拥塞控制算法,它可以高效增加吞吐和降低网络延迟，并且Linux Kernel4.9+已经集成该算法。开启BBR也非常简单，因为它只需要在发送端开启，网络其他节点和接收端不需要任何改变。
