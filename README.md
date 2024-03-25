@@ -2,6 +2,17 @@
 
 ---
 
+- 2024-03-25   [如何重置ESXI的试用license](blog/esxi-trial-reset.md)  
+
+    > 近期，VMware取消了vSphere Hypervisor（亦称为 ESXi）的免费个人license。 
+    >
+    > 不过试用版有60天的时间限制，时间到了之后就没法建新的虚拟机，断电后也不能启动虚拟机，使用上还是相当难受的。网上有很多方法教大家如何重置试用时间，有些甚至需要重启esxi，且都需要人工操作。为简化操作，我将收集到的信息整理成了一个自动的脚本。
+    > 
+    > 该脚本可以解决以下问题：
+    > - 试用版到期后，无需重新安装ESXI
+    > - 重置试用时间时，无需重启ESXI
+    > - 快到期或已经过期时，自动重置试用时间
+
 - 2020-05-28   [Windows 10 Terminal初体验](blog/windows-terminal.md)  
 
     > Windows Terminal is a new, modern, feature-rich, productive terminal application for command-line users. It includes many of the features most frequently requested by the Windows command-line community including support for tabs, rich text, globalization, configurability, theming & styling, and more.
