@@ -15,7 +15,11 @@ keywords: 路由器, OpenWRT, Hyper-V
 
 ## 准备工作：
 - 下载OpenWRT官方镜像：https://firmware-selector.openwrt.org/?version=23.05.4&target=x86%2F64&id=generic
+- 或者下载ImmortalWrt镜像：https://firmware-selector.immortalwrt.org/?version=23.05.3&target=x86%2F64&id=generic
 - 下载starwind v2vconverter，用于将官方镜像转换为虚拟机格式：https://www.starwindsoftware.com/v2vconverter
+
+> 注：ImmortalWrt镜像相比官方镜像，多了一些插件、语言包和主题，也集成了国内源，适合新手入门。 
+> 使用方法上与官方镜像差异不大，文中的部分操作ImmortalWrt镜像已经做好了的就不必重复操作了。
 
 ## 转写hyper-v硬盘文件
 
